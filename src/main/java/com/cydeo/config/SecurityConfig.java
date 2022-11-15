@@ -37,7 +37,7 @@ public class SecurityConfig {
             //                .antMatchers("/user/**").hasRole("ADMIN")
             .antMatchers("/user/**").hasAuthority("Admin")
             .antMatchers("/project/**").hasAuthority("Manager")
-            .antMatchers("/task/employee/**").hasAuthority("Empployee")
+            .antMatchers("/task/employee/**").hasAuthority("Employee")
             .antMatchers("/task/**").hasAuthority("Manager")
 //            .antMatchers("/task/**").hasAnyRole("EMPLOYEE", "ADMIN")
          //   .antMatchers("/task/**"). hasAuthority("ROLE_EMPLOYEE")
