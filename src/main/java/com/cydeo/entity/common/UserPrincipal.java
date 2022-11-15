@@ -11,8 +11,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
     public UserPrincipal(User user) {
-        this.user = user;
-    }
+        this.user = user; }
 
     private User user;
 

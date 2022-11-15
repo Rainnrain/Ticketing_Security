@@ -18,26 +18,27 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-@Bean
-    public UserDetailsService userDetailService (PasswordEncoder encoder){
-    List<UserDetails> userList = new ArrayList();
-    userList.add(new User("Mike", encoder.encode("password"),
-                    Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
-
-    userList.add( new User("Ozzy", encoder.encode("password"),
-            Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
-
-    return new InMemoryUserDetailsManager(userList);
-    }
+//@Bean
+//    public UserDetailsService userDetailService (PasswordEncoder encoder){
+//    List<UserDetails> userList = new ArrayList();
+//    userList.add(new User("Mike", encoder.encode("password"),
+//                    Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+//
+//    userList.add( new User("Ozzy", encoder.encode("password"),
+//            Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
+//
+//    return new InMemoryUserDetailsManager(userList);
+//    }
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception{
     return http.authorizeRequests()
+            //                .antMatchers("/user/**").hasRole("ADMIN")
             .antMatchers("/user/**").hasAuthority("Admin")
-           // .antMatchers("/project/**").hasRole("MANAGER")
-           // .antMatchers("/task/employee/**").hasRole("EMPLOYEE")
-            //.antMatchers("/task/**").hasRole("MANAGER")
-          //  .antMatchers("/task/**").hasAnyRole("EMPLOYEE", "ADMIN")
+            .antMatchers("/project/**").hasAuthority("Manager")
+            .antMatchers("/task/employee/**").hasAuthority("Empployee")
+            .antMatchers("/task/**").hasAuthority("Manager")
+//            .antMatchers("/task/**").hasAnyRole("EMPLOYEE", "ADMIN")
          //   .antMatchers("/task/**"). hasAuthority("ROLE_EMPLOYEE")
             .antMatchers("/",
 
