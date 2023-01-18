@@ -1,4 +1,4 @@
-version: 3.7
+version: "3.7"
 services:
   mypostgres:
     image: postgres
@@ -12,8 +12,17 @@ services:
     restart: always
     volumes:
       - initdb:/var/lib/postgresql/data
+    networks:
+      - webnet
   ticketing-app:
-    build:
+    build: .
+    container_name: ticketingapp
+    ports:
+      - "8080:8080"
+    networks:
+      - webnet
+    depends_on:
+      - mypostgres
 networks:
   webnet:
     driver: bridge
