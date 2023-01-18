@@ -41,8 +41,7 @@ public class SecurityConfig {
             .antMatchers("/task/**").hasAuthority("Manager")
 //            .antMatchers("/task/**").hasAnyRole("EMPLOYEE", "ADMIN")
          //   .antMatchers("/task/**"). hasAuthority("ROLE_EMPLOYEE")
-            .antMatchers("/",
-
+            .antMatchers(
                     "/login",
                     "/fragments/**",
                     "/assets/**",
@@ -53,7 +52,7 @@ public class SecurityConfig {
             .formLogin()
                 .loginPage("/login")
                // .defaultSuccessUrl("/welcome")
-            .successHandler(authSuccessHandler)
+                 .successHandler(authSuccessHandler)
                 .failureUrl("/login?error=true")
                 .permitAll()
             .and()

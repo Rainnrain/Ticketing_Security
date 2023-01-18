@@ -7,6 +7,7 @@ import com.cydeo.entity.User;
 import com.cydeo.mapper.UserMapper;
 import com.cydeo.repository.UserRepository;
 import com.cydeo.service.ProjectService;
+import com.cydeo.service.SecurityService;
 import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
 import org.springframework.context.annotation.Lazy;
@@ -24,13 +25,15 @@ public class UserServiceImpl implements UserService {
     private final ProjectService projectService;
     private final TaskService taskService;
     private final PasswordEncoder passwordEncoder;
+    private final SecurityService securityService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, @Lazy ProjectService projectService, @Lazy TaskService taskService, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, @Lazy ProjectService projectService, @Lazy TaskService taskService, PasswordEncoder passwordEncoder, SecurityService securityService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.projectService = projectService;
         this.taskService = taskService;
         this.passwordEncoder = passwordEncoder;
+        this.securityService = securityService;
     }
 
     @Override
@@ -104,6 +107,8 @@ public class UserServiceImpl implements UserService {
             case "Employee":
                 List<TaskDTO> taskDTOList = taskService.listAllNonCompletedByAssignedEmployee(userMapper.convertToDto(user));
                 return taskDTOList.size() == 0;
+            case "Admin":
+                 if(user.getUserName().equals(securityService.loadUserByUsername(user.getUserName()).getUsername())) return false;
             default:
                 return true;
         }
