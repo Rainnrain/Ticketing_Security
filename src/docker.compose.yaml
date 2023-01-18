@@ -13,6 +13,7 @@ services:
     volumes:
       - initdb:/var/lib/postgresql/data
   ticketing-app:
+    build:
 networks:
   webnet:
     driver: bridge
