@@ -27,9 +27,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> listAllRoles() {
         List<Role> roleList = roleRepository.findAll();
-//        return roleList.stream().map(roleMapper::convertToDto).collect(Collectors.toList());
         return roleList.stream().map(role -> mapperUtil.convert(role, new RoleDTO())).collect(Collectors.toList());
-//        return roleList.stream().map(role -> mapperUtil.convert(role, RoleDTO.class)).collect(Collectors.toList());
     }
 
     @Override
