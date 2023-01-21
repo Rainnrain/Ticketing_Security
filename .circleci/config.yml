@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
+      # specify the version you desire here please
       - image: circleci/openjdk:11-jdk
     working_directory: /tmp/workspace
     steps:
