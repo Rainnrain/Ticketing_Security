@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p /tmp/workspace
-      # Download and cache dependencies
+      # Download and cache dependencies here
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
